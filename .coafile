@@ -1,0 +1,63 @@
+[all]
+files = **.py, **.cpp, **.c, **.java, **.md
+ignore = CodeChef/COOK102B/*, CodeChef/COOK103B/*, CodeChef/DEC18B/*,
+         CodeChef/JAN18B/*, CodeChef/LTIME67B/*, CodeChef/LTIME68A/*,
+         Codeforces/CF_1087/*, Codeforces/CF_109*/*, Codeforces/CF_1100/*,
+         Codeforces/CF_1101/*, Codeforces/CF_1102/*, Codeforces/CF_1103/*,
+         Codeforces/CF_1104/*, Codeforces/CF_1105/*, Codeforces/CF_1106/*,
+         Codeforces/CF_1107/*, Codeforces/CF_1108/*, Codeforces/CF_1113/*,
+         Codeforces/CF_1189/*
+max_line_length = 80
+use_spaces = True
+
+[all.python]
+# Patches may conflict with autopep8 so putting them in own section so they
+# will be executed sequentially; also we need the LineLengthBear to double
+# check the line length because PEP8Bear sometimes isn't able to correct the
+# linelength.
+files = **.py
+bears = SpaceConsistencyBear, QuotesBear
+language = python
+default_actions = *: ApplyPatchAction
+preferred_quotation = '
+
+[all.flakes]
+files = **.py
+default_action: *: ShowPatchAction
+bears = PyUnusedCodeBear
+language = Python
+
+[all.autopep8]
+files = **.py
+bears = PEP8Bear, PycodestyleBear
+default_actions = PEP8Bear: ApplyPatchAction
+
+[all.linelength]  # Sometimes autopep8 makes too long lines, need to check after!
+bears = LineLengthBear
+ignore_length_regex = ^.*https?://
+
+[all.commit]
+bears = GitCommitBear
+shortlog_trailing_period = False
+shortlog_regex = ([^:]*|[^:]+: [A-Z0-9*].*)
+body_close_issue = True
+body_close_issue_full_url = True
+body_close_issue_on_last_line = True
+body_enforce_issue_reference = False
+
+[all.LineCounting]
+enabled = False
+bears = LineCountBear
+max_lines_per_file = 1000
+
+[all.cpp]
+files = **.cpp
+bears = CPPLintBear
+
+[all.yml]
+bears = YAMLLintBear
+files = *.yml, *.yaml
+
+[rst]
+bear = reSTLintBear
+files = **.rst
